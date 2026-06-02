@@ -60,16 +60,29 @@ exports.getGoal = async (req, res) => {
 // Update Goal
 exports.updateGoal = async (req, res) => {
     try {
-        const updatedGoal = await GoalModel.findByIdAndUpdate(req.params.id, req.body, {
+        console.log("UPDATE GOAL CALLED");
+        console.log("PARAMS ID:", req.params.id);
+        console.log("BODY:", req.body);
+        let updateData = { ...req.body };
+        
+        // If a new image was uploaded during the update, upload it to S3 and add it to updateData
+        if (req.file) {
+            console.log("FILE UPLOADED, uploading to S3...");
+            const imageUrl = await uploadToS3(req.file, "homeGoal");
+            updateData.image = imageUrl;
+        }
+
+        const updatedGoal = await GoalModel.findByIdAndUpdate(req.params.id, updateData, {
             new: true,
             runValidators: true,
         });
 
+        console.log("UPDATED GOAL:", updatedGoal);
         if (!updatedGoal) return res.status(404).json({ success: false, message: "Goal not found" });
 
         res.status(200).json({ success: true, data: updatedGoal });
     } catch (error) {
-        console.error(error);
+        console.error("ERROR IN UPDATE GOAL:", error);
         res.status(500).json({ success: false, message: "Server Error" });
     }
 };

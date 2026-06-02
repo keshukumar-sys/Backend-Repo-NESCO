@@ -7,7 +7,7 @@ const upload = require("../../middlewares/upload");
 router.post("/", upload.single("image") ,  goalController.createGoal);        // Create
 router.get("/", goalController.getAllGoals);       // Read all
 router.get("/:id", goalController.getGoal);        // Read single
-router.put("/:id", goalController.updateGoal);     // Update
+router.put("/:id", upload.single("image"), goalController.updateGoal);     // Update
 router.delete("/:id", goalController.deleteGoal);  // Delete
 
 module.exports = router;
