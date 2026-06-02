@@ -140,6 +140,7 @@ exports.updateHomePageBanner = async (req, res) => {
       banner,
     });
   } catch (error) {
+    console.error("🔥 UPDATE HOME PAGE BANNER ERROR:", error);
     res.status(500).json({
       message: "Update banner failed",
       error: error.message,

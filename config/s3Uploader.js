@@ -25,7 +25,7 @@ const uploadToS3 = async (file, folder = "uploads") => {
   const key = `${folder}/${uuid()}-${file.originalname}`;
 
   const uploadParams = {
-    Bucket: process.env.AWS_BUCKET_NAME || "nescodoucmentsandpdfs",
+    Bucket: process.env.AWS_BUCKET_NAME || "nescodocuments",
     Key: key,
     Body: file.buffer,
     ContentType: file.mimetype,

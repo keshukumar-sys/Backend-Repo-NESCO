@@ -2,16 +2,7 @@ const express = require("express");
 const router = express.Router();
 const sebiController = require("../controllers/sebi/index");
 
-/* =====================================================
-   📌 SEBI ROUTES - COMPLETE VERSION WITH EDIT SUPPORT
-   
-   IMPORTANT: Route order matters! More specific routes
-   must come BEFORE generic routes to avoid conflicts.
-===================================================== */
 
-/* =====================================================
-   🟢 BASE CRUD OPERATIONS
-===================================================== */
 
 // Create SEBI record
 router.post("/", sebiController.createSEBI);
@@ -33,20 +24,14 @@ router.delete("/:id", sebiController.deleteSEBIRecord);
 ===================================================== */
 
 router.put(
-  "/:id/field/:tableType/:tableId",
-  sebiController.editNestedField
+   "/:id/field/:tableType/:tableId",
+   sebiController.editNestedField
 );
 
-/* =====================================================
-   🟡 SINGLE-LEVEL ITEM EDIT ROUTES
-   
-   These handle editing of single-level items
-   Format: /sebi/:id/single/:tableType/:itemId
-===================================================== */
 
 router.put(
-  "/:id/single/:tableType/:itemId",
-  sebiController.editSingleLevelItem
+   "/:id/single/:tableType/:itemId",
+   sebiController.editSingleLevelItem
 );
 
 /* =====================================================
@@ -54,8 +39,8 @@ router.put(
 ===================================================== */
 
 router.delete(
-  "/:id/field/:tableType/:tableId/:fieldId",
-  sebiController.deleteNestedField
+   "/:id/field/:tableType/:tableId/:fieldId",
+   sebiController.deleteNestedField
 );
 
 /* =====================================================
@@ -63,8 +48,8 @@ router.delete(
 ===================================================== */
 
 router.delete(
-  "/:id/single/:tableType/:itemId",
-  sebiController.deleteSingleLevelItem
+   "/:id/single/:tableType/:itemId",
+   sebiController.deleteSingleLevelItem
 );
 
 /* =====================================================
@@ -72,8 +57,8 @@ router.delete(
 ===================================================== */
 
 router.delete(
-  "/:id/table/:tableType/:tableId",
-  sebiController.deleteSpecificTable
+   "/:id/table/:tableType/:tableId",
+   sebiController.deleteSpecificTable
 );
 
 /* =====================================================
@@ -83,6 +68,6 @@ router.delete(
 // Update SEBI record (for main fields only)
 router.put("/:id", sebiController.updateSEBIRecord);
 
-router.delete("/:id" , sebiController.deleteSEBI)
+router.delete("/:id", sebiController.deleteSEBI)
 
 module.exports = router;
