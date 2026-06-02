@@ -49,8 +49,15 @@ const app = express();
 // });
 app.use(
   cors({
-    origin: true,       // allow all origins
-    credentials: true,  // allow cookies / auth headers
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:4000",
+      "https://main.d8gdexgfmcmvy.amplifyapp.com",
+      "https://nesco-admin-panel.vercel.app",
+      "https://areej022026.d8gdexgfmcmvy.amplifyapp.com",
+      "https://keshu02062026.d8gdexgfmcmvy.amplifyapp.com"
+    ],
+    credentials: true,
   })
 );
 app.use(express.json({ limit: "50mb" }));
