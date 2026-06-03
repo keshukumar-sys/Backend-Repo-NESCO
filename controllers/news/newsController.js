@@ -70,12 +70,20 @@ const updateNews = async (req, res) => {
     if (!news) return res.status(404).json({ message: 'News not found' });
 
     // Update fields
-    news.title = req.body.title ?? news.title;
-    news.description = req.body.description ?? news.description;
+    if (req.body.type !== undefined) news.type = req.body.type;
+    if (req.body.title !== undefined) news.title = req.body.title;
+    if (req.body.description !== undefined) news.description = req.body.description;
+    if (req.body.backgroundColor !== undefined) news.backgroundColor = req.body.backgroundColor;
+    if (req.body.color !== undefined) news.color = req.body.color;
+    if (req.body.arrowColor !== undefined) news.arrowColor = req.body.arrowColor;
+    if (req.body.isExternal !== undefined) news.isExternal = req.body.isExternal;
+    if (req.body.href !== undefined) news.href = req.body.href;
+    if (req.body.file !== undefined) news.file = req.body.file;
+    if (req.body.downloadColor !== undefined) news.downloadColor = req.body.downloadColor;
 
     // Update image if provided
-    if (req.files?.image) {
-      news.image = await uploadToS3(req.files.image[0], 'news');
+    if (req.files && req.files.image) {
+      news.imageUrl = await uploadToS3(req.files.image[0], 'news');
     }
 
     await news.save();
